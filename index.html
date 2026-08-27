@@ -136,13 +136,13 @@
 
   .backdrop-half{position:absolute;inset:0;z-index:2;pointer-events:none;background:#F4E9D8 url('https://d8j0ntlcm91z4.cloudfront.net/user_3IVN073Xc0iLeFjE7IDKTw7MYZt/hf_20260827_191554_d7eeea82-77fb-457f-b751-aad80414d348.png') center/cover no-repeat;backface-visibility:hidden;}
   .backdrop-half-left{
-    clip-path:polygon(0% 0%, 52% 0%, 48% 8%, 53% 16%, 47% 24%, 51% 32%, 46% 40%, 52% 48%, 47% 56%, 51% 64%, 46% 72%, 52% 80%, 48% 88%, 51% 94%, 0% 100%);
+    clip-path:inset(0 50% 0 0);
     transform-origin:100% 50%;
     transform:translateX(calc(-1 * var(--photo-split))) translateZ(calc(-1 * var(--photo-depth))) rotateY(calc(-1 * var(--photo-tilt)));
     filter:drop-shadow(calc(-1 * var(--photo-split) * 0.4) 0 18px rgba(0,0,0,0.6));
   }
   .backdrop-half-right{
-    clip-path:polygon(48% 0%, 100% 0%, 100% 100%, 52% 100%, 49% 94%, 53% 88%, 48% 80%, 54% 72%, 49% 64%, 53% 56%, 48% 48%, 54% 40%, 49% 32%, 53% 24%, 48% 16%, 52% 8%);
+    clip-path:inset(0 0 0 50%);
     transform-origin:0% 50%;
     transform:translateX(var(--photo-split)) translateZ(calc(-1 * var(--photo-depth))) rotateY(var(--photo-tilt));
     filter:drop-shadow(calc(var(--photo-split) * 0.4) 0 18px rgba(0,0,0,0.6));
