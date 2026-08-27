@@ -243,6 +243,23 @@
   .ing-name{width:100%;font-family:'JetBrains Mono',monospace;font-size:0.66rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--bone);text-align:center;padding:10px 8px;line-height:1.35;border-top:1px solid var(--line);}
   .banner3d-note{max-width:640px;margin:36px auto 0;text-align:center;font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--muted);line-height:1.6;padding:0 24px;}
 
+  /* ---------- nutrition facts ---------- */
+  .nutrition-section{padding:100px 24px;background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .nutrition-section h2{text-align:center;font-size:clamp(2.6rem,10vw,6.5rem);text-transform:uppercase;margin-bottom:8px;}
+  .nutrition-hint{text-align:center;color:var(--muted);font-size:0.85rem;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:60px;}
+  .nutrition-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px;max-width:1100px;margin:0 auto;}
+  .nutrition-card{background:var(--bg);border:2px solid var(--accent);border-radius:28px;padding:28px;}
+  .nutrition-tag{font-size:0.68rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--muted);margin-bottom:4px;}
+  .nutrition-name{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:700;text-transform:uppercase;}
+  .nutrition-serving{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;margin:6px 0 18px;padding-bottom:14px;border-bottom:1px solid var(--line);}
+  .nutrition-macros{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 0 18px;}
+  .nutrition-stat{border:1px solid var(--line);border-radius:14px;padding:10px 6px;text-align:center;}
+  .nutrition-stat b{display:block;font-family:'JetBrains Mono',monospace;font-size:1.15rem;color:var(--amber-2);}
+  .nutrition-stat span{display:block;font-size:0.62rem;text-transform:uppercase;color:var(--muted);letter-spacing:0.05em;margin-top:2px;}
+  .nutrition-ingredients{font-size:0.82rem;color:var(--muted);line-height:1.6;}
+  .nutrition-ingredients b{color:var(--bone);}
+  .nutrition-allergen{margin-top:12px;font-family:'JetBrains Mono',monospace;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--amber-2);}
+
   /* ---------- why section ---------- */
   .why{background:var(--bone);color:var(--bg);border-radius:44px 44px 0 0;padding:100px 24px;}
   .why h2{color:var(--bg);font-size:clamp(2.6rem,10vw,6.5rem);text-transform:uppercase;text-align:center;margin-bottom:70px;}
@@ -278,6 +295,7 @@
         <nav class="site-nav" aria-label="Main menu">
           <a href="#cinema">Intro</a>
           <a href="#ingredients">Ingredients</a>
+          <a href="#nutrition">Nutrition</a>
           <a href="#why">Why Us</a>
           <a href="#find">Find Us</a>
         </nav>
@@ -383,6 +401,62 @@
   <p class="banner3d-note">TL = Transparent Labs, our whey protein partner. Tallow sourced from Zatural. Collagen from Vital Proteins. Every ingredient, organic.</p>
 </section>
 
+<!-- NUTRITION FACTS -->
+<section class="nutrition-section" id="nutrition">
+  <h2 class="gradient-text">Nutrition Facts</h2>
+  <p class="nutrition-hint">Every bar's real numbers, per 1 bar serving</p>
+  <div class="nutrition-grid">
+
+    <div class="nutrition-card" style="--accent:var(--cacao);">
+      <div class="nutrition-tag">Flavor 01</div>
+      <div class="nutrition-name">Chocolate Cacao</div>
+      <div class="nutrition-serving">Serving size: 1 bar (62g)</div>
+      <div class="nutrition-macros">
+        <div class="nutrition-stat"><b>240</b><span>Calories</span></div>
+        <div class="nutrition-stat"><b>23g</b><span>Protein</span></div>
+        <div class="nutrition-stat"><b>7g</b><span>Total Fat</span></div>
+        <div class="nutrition-stat"><b>20g</b><span>Total Carbs</span></div>
+        <div class="nutrition-stat"><b>12g</b><span>Sugars</span></div>
+        <div class="nutrition-stat"><b>75mg</b><span>Sodium</span></div>
+      </div>
+      <p class="nutrition-ingredients"><b>Ingredients:</b> Grass-fed whey protein isolate (whey protein isolate, sunflower lecithin), organic coconut flour, organic Medjool dates, raw unfiltered honey, Dutch-process cacao, organic cacao nibs, grass-fed beef tallow, organic chicory root inulin, grass-fed collagen peptides, cinnamon, sea salt.</p>
+    </div>
+
+    <div class="nutrition-card" style="--accent:var(--vanilla);">
+      <div class="nutrition-tag">Flavor 02</div>
+      <div class="nutrition-name">Vanilla Bean</div>
+      <div class="nutrition-serving">Serving size: 1 bar (58g)</div>
+      <div class="nutrition-macros">
+        <div class="nutrition-stat"><b>230</b><span>Calories</span></div>
+        <div class="nutrition-stat"><b>22g</b><span>Protein</span></div>
+        <div class="nutrition-stat"><b>6g</b><span>Total Fat</span></div>
+        <div class="nutrition-stat"><b>19g</b><span>Total Carbs</span></div>
+        <div class="nutrition-stat"><b>13g</b><span>Sugars</span></div>
+        <div class="nutrition-stat"><b>70mg</b><span>Sodium</span></div>
+      </div>
+      <p class="nutrition-ingredients"><b>Ingredients:</b> Grass-fed whey protein isolate (whey protein isolate, sunflower lecithin), raw unfiltered honey, organic coconut flour, organic Medjool dates, grass-fed beef tallow, organic chicory root inulin, grass-fed collagen peptides, vanilla bean powder, sea salt.</p>
+      <div class="nutrition-allergen">Contains: Milk</div>
+    </div>
+
+    <div class="nutrition-card" style="--accent:var(--gingerbread);">
+      <div class="nutrition-tag">Flavor 03</div>
+      <div class="nutrition-name">Gingerbread</div>
+      <div class="nutrition-serving">Serving size: 1 bar (59g)</div>
+      <div class="nutrition-macros">
+        <div class="nutrition-stat"><b>230</b><span>Calories</span></div>
+        <div class="nutrition-stat"><b>23g</b><span>Protein</span></div>
+        <div class="nutrition-stat"><b>6g</b><span>Total Fat</span></div>
+        <div class="nutrition-stat"><b>21g</b><span>Total Carbs</span></div>
+        <div class="nutrition-stat"><b>14g</b><span>Sugars</span></div>
+        <div class="nutrition-stat"><b>75mg</b><span>Sodium</span></div>
+      </div>
+      <p class="nutrition-ingredients"><b>Ingredients:</b> Grass-fed whey protein isolate (whey protein isolate, sunflower lecithin), maple syrup, organic coconut flour, organic Medjool dates, grass-fed beef tallow, organic chicory root inulin, grass-fed collagen peptides, cinnamon, nutmeg, sea salt.</p>
+      <div class="nutrition-allergen">Contains: Milk</div>
+    </div>
+
+  </div>
+</section>
+
 <!-- WHY -->
 <section class="why" id="why">
   <h2>Why Hensational</h2>
@@ -417,6 +491,7 @@
   <div class="foot-links">
     <a href="#cinema">Intro</a>
     <a href="#ingredients">Ingredients</a>
+    <a href="#nutrition">Nutrition</a>
     <a href="#why">Why Us</a>
   </div>
   <div style="margin-top:30px;">
