@@ -249,7 +249,8 @@
   .nutrition-section h2{text-align:center;font-size:clamp(2.6rem,10vw,6.5rem);text-transform:uppercase;margin-bottom:8px;}
   .nutrition-hint{text-align:center;color:var(--muted);font-size:0.85rem;text-transform:uppercase;letter-spacing:0.12em;margin-bottom:60px;}
   .nutrition-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px;max-width:1100px;margin:0 auto;}
-  .nutrition-card{background:var(--bg);border:2px solid var(--accent);border-radius:28px;padding:28px;}
+  .nutrition-card{background:var(--bg);border:2px solid var(--accent);border-radius:28px;padding:28px;position:relative;transition:transform 0.35s cubic-bezier(.2,.9,.3,1.1), box-shadow 0.35s ease, border-color 0.3s ease;}
+  .nutrition-card:hover{transform:translateY(-10px) scale(1.02);box-shadow:0 24px 48px rgba(0,0,0,0.5);border-color:var(--amber-2);z-index:2;}
   .nutrition-tag{font-size:0.68rem;text-transform:uppercase;letter-spacing:0.15em;color:var(--muted);margin-bottom:4px;}
   .nutrition-name{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:700;text-transform:uppercase;}
   .nutrition-serving{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;margin:6px 0 18px;padding-bottom:14px;border-bottom:1px solid var(--line);}
