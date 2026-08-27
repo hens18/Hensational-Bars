@@ -88,10 +88,7 @@
     --shade-top-alpha:0; --shade-mid-alpha:0; --shade-bottom-alpha:0;
     --blur-tint: 201, 98, 43;
     --title-y:0px; --title-scale:1; --title-opacity:1;
-    --bridge-x:-50%; --bridge-y:0px; --bridge-bottom:5vh;
-    --bridge-width:67.2vw; --bridge-scale:1.02;
-    --split-left-x:-50%; --split-left-y:0px; --split-left-scale:1;
-    --split-right-x:-50%; --split-right-y:0px; --split-right-scale:1;
+    --photo-split:0vw; --photo-tilt:0deg;
     --frame2-opacity:0; --frame2-x:-50%; --frame2-y:-50%; --frame2-scale:1.06;
     --intro-copy-y:0px; --intro-copy-opacity:1;
     --panel2-opacity:0; --panel2-y:calc(-50% + 58px);
@@ -101,7 +98,6 @@
     --flavor-shift:0px; --flavor-scale:1;
     --flavor-top: clamp(112px, 19vh, 220px);
     --flavor-screen-top: clamp(112px, 19vh, 220px);
-    --edge-opacity: 1;
   }
 
   .cinema-scroll{position:relative;height:calc(100vh + 3700px);}
@@ -138,7 +134,9 @@
   .flavor-controls.is-ready{pointer-events:auto;}
   .flavor-nav{width:52px;height:52px;display:inline-flex;align-items:center;justify-content:center;border-radius:999px;color:#111411;background:rgba(253,241,225,0.94);box-shadow:0 18px 36px rgba(0,0,0,0.3);cursor:pointer;font-size:1.1rem;border:none;font-family:inherit;}
 
-  .hero-backdrop{position:absolute;inset:0;z-index:2;pointer-events:none;background:#F4E9D8 url('https://d8j0ntlcm91z4.cloudfront.net/user_3IVN073Xc0iLeFjE7IDKTw7MYZt/hf_20260827_191554_d7eeea82-77fb-457f-b751-aad80414d348.png') center/cover no-repeat;opacity:var(--title-opacity);}
+  .backdrop-half{position:absolute;inset:0;z-index:2;pointer-events:none;background:#F4E9D8 url('https://d8j0ntlcm91z4.cloudfront.net/user_3IVN073Xc0iLeFjE7IDKTw7MYZt/hf_20260827_191554_d7eeea82-77fb-457f-b751-aad80414d348.png') center/cover no-repeat;transform-origin:50% 100%;}
+  .backdrop-half-left{clip-path:inset(0 50% 0 0);transform:translateX(calc(-1 * var(--photo-split))) rotate(calc(-1 * var(--photo-tilt)));}
+  .backdrop-half-right{clip-path:inset(0 0 0 50%);transform:translateX(var(--photo-split)) rotate(var(--photo-tilt));}
   .header-scrim{position:absolute;top:0;left:0;right:0;height:170px;z-index:9;pointer-events:none;background:linear-gradient(180deg, rgba(0,0,0,0.5) 0%, transparent 100%);}
 
   .hero-title{position:absolute;left:50%;top:clamp(80px,14vh,150px);width:min(96vw,1780px);margin:0;z-index:3;display:flex;flex-direction:column;align-items:center;text-align:center;pointer-events:none;transform:translate3d(-50%, var(--title-y), 0) scale(var(--title-scale));opacity:var(--title-opacity);will-change:transform,opacity;}
@@ -151,11 +149,6 @@
     margin-top:-0.08em;
   }
 
-  .hero-bar{position:absolute;left:50%;bottom:var(--bridge-bottom);width:min(var(--bridge-width), 860px);height:calc(min(var(--bridge-width), 860px) * 0.32);border-radius:32px;z-index:4;pointer-events:none;opacity:calc(var(--edge-opacity) * (1 - var(--title-opacity)));background:linear-gradient(135deg, var(--amber-2) 0%, var(--amber-1) 45%, var(--cacao) 100%);box-shadow:0 40px 90px rgba(0,0,0,0.55), inset 0 2px 0 rgba(255,255,255,0.18);transform:translate3d(var(--bridge-x), var(--bridge-y), 0) scale(var(--bridge-scale));transform-origin:50% 48%;}
-
-  .bar-half{position:absolute;left:50%;bottom:-2vh;width:min(58vw,1080px);height:calc(min(58vw,1080px) * 0.32);z-index:6;border-radius:32px;pointer-events:none;opacity:calc(var(--edge-opacity) * (1 - var(--title-opacity)));background:linear-gradient(135deg, var(--amber-2) 0%, var(--amber-1) 45%, var(--cacao) 100%);box-shadow:0 40px 90px rgba(0,0,0,0.55), inset 0 2px 0 rgba(255,255,255,0.18);}
-  .bar-half-left{clip-path:inset(0 50% 0 0);transform:translate3d(var(--split-left-x), var(--split-left-y), 0) scale(var(--split-left-scale));transform-origin:21% 52%;}
-  .bar-half-right{clip-path:inset(0 0 0 50%);transform:translate3d(var(--split-right-x), var(--split-right-y), 0) scale(var(--split-right-scale));transform-origin:79% 52%;}
 
   .macro-reveal{position:absolute;left:50%;top:20%;z-index:5;width:min(90vw,760px);display:flex;flex-wrap:wrap;justify-content:center;gap:26px 46px;padding:38px;border-radius:40px;background:rgba(28,23,18,0.62);border:2px solid rgba(253,241,225,0.25);backdrop-filter:blur(6px);pointer-events:none;opacity:var(--frame2-opacity);transform:translate3d(var(--frame2-x), var(--frame2-y), 0) scale(var(--frame2-scale));transform-origin:50% 48%;}
   .macro-reveal-item{display:flex;flex-direction:column;align-items:center;}
@@ -185,8 +178,6 @@
   @media(max-width:1100px){
     .hero-title{font-size:clamp(3rem,11vw,6.6rem);}
     .story-panel h2{font-size:clamp(1.8rem,7vw,2.8rem);}
-    .bar-half{width:min(78vw,860px);height:calc(min(78vw,860px)*0.32);}
-    .hero-bar{width:min(var(--bridge-width), 680px);height:calc(min(var(--bridge-width),680px)*0.32);}
     .flavor-slide{flex-basis:clamp(280px,42vw,340px);}
   }
   @media(max-width:640px){
@@ -303,7 +294,8 @@
       </header>
       <div class="header-scrim"></div>
 
-      <div class="hero-backdrop"></div>
+      <div class="backdrop-half backdrop-half-left"></div>
+      <div class="backdrop-half backdrop-half-right"></div>
 
       <div class="back-stack">
         <div class="glow-layer"></div>
@@ -344,10 +336,6 @@
         <span class="hero-title-row" aria-hidden="true">hensational</span>
         <span class="hero-title-row" aria-hidden="true">hensational</span>
       </h1>
-
-      <div class="bar-half bar-half-left"></div>
-      <div class="bar-half bar-half-right"></div>
-      <div class="hero-bar"></div>
 
       <div class="macro-reveal">
         <div class="macro-reveal-item"><span class="macro-reveal-num">22g</span><span class="macro-reveal-label">Protein</span></div>
@@ -658,12 +646,10 @@ halo.innerHTML = haloIcons.map((svg, i) => {
     const flavorControlsEnter = smoothstep(3360, 3660, smoothScroll);
     const blurActive = clamp(frame2.active + frame3.active);
     const frame2Opacity = frame2.active * (1 - frame3.enter);
-    const splitDrift = Math.pow(frame2.enter, 1.5);
     const panel2Opacity = frame2.active * (1 - frame2.exit);
     const panel3Opacity = frame3.active * (1 - frame3.exit);
     const backScale = 0.76 + progress * 0.2 + frame2.enter * 0.18 + frame3.enter * 0.16;
-    const sharedHeroY = progress * -74;
-    const sharedHeroScale = progress * 0.23;
+    const backdropSplit = Math.pow(clamp(smoothScroll / 3700), 1.15);
     const flavorScreenTop = Math.min(220, Math.max(112, window.innerHeight * 0.19)) - 50;
     const flavorParentTop = window.innerHeight - (window.innerHeight - flavorScreenTop) / backScale;
 
@@ -694,24 +680,13 @@ halo.innerHTML = haloIcons.map((svg, i) => {
     root.style.setProperty('--title-scale', 1 - introExit * 0.08);
     root.style.setProperty('--title-opacity', 1 - introExit);
 
-    root.style.setProperty('--bridge-x', `calc(-50% + ${mouseX * 18}px)`);
-    root.style.setProperty('--bridge-y', `${mouseY * 8 + sharedHeroY - frame2.exit * 760}px`);
-    root.style.setProperty('--bridge-bottom', `${5 - frame2.enter * 13}vh`);
-    root.style.setProperty('--bridge-width', `${67.2 + frame2.enter * 37.8}vw`);
-    root.style.setProperty('--bridge-scale', 1.02 + sharedHeroScale + frame2.exit * 0.46);
-
-    root.style.setProperty('--split-left-x', `calc(-50% + ${-splitDrift * 46}vw + ${mouseX * 22}px)`);
-    root.style.setProperty('--split-left-y', `${mouseY * 10 + sharedHeroY - splitDrift * 180}px`);
-    root.style.setProperty('--split-left-scale', 1 + sharedHeroScale + frame2.enter * 0.74);
-    root.style.setProperty('--split-right-x', `calc(-50% + ${splitDrift * 46}vw + ${mouseX * 22}px)`);
-    root.style.setProperty('--split-right-y', `${mouseY * 10 + sharedHeroY - splitDrift * 180}px`);
-    root.style.setProperty('--split-right-scale', 1 + sharedHeroScale + frame2.enter * 0.74);
+    root.style.setProperty('--photo-split', `${backdropSplit * 20}vw`);
+    root.style.setProperty('--photo-tilt', `${backdropSplit * 3}deg`);
 
     root.style.setProperty('--frame2-opacity', frame2Opacity);
     root.style.setProperty('--frame2-x', `calc(-50% + ${mouseX * 10}px)`);
     root.style.setProperty('--frame2-y', `calc(-50% + ${mouseY * 8 - frame2.exit * 150}px)`);
     root.style.setProperty('--frame2-scale', 1.06 + frame2.enter * 0.08 + frame2.exit * 0.08);
-    root.style.setProperty('--edge-opacity', 1 - frame3.exit);
 
     root.style.setProperty('--intro-copy-y', `${introExit * 90}px`);
     root.style.setProperty('--intro-copy-opacity', 1 - introExit);
