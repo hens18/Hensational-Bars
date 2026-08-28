@@ -88,7 +88,6 @@
     --shade-top-alpha:0; --shade-mid-alpha:0; --shade-bottom-alpha:0;
     --blur-tint: 201, 98, 43;
     --title-y:0px; --title-scale:1; --title-opacity:1;
-    --photo-split:0vw; --photo-tilt:0deg; --photo-depth:0px;
     --frame2-opacity:0; --frame2-x:-50%; --frame2-y:-50%; --frame2-scale:1.06;
     --intro-copy-y:0px; --intro-copy-opacity:1;
     --panel2-opacity:0; --panel2-y:calc(-50% + 58px);
@@ -102,7 +101,7 @@
 
   .cinema-scroll{position:relative;height:calc(100vh + 3700px);}
   .stage{position:sticky;top:0;height:100vh;min-height:640px;overflow:hidden;isolation:isolate;background:#1a1108;}
-  .world{position:absolute;inset:0;overflow:hidden;background:radial-gradient(120% 90% at 50% 8%, #2b1c0f 0%, #17110b 55%, #0e0b08 100%);perspective:1400px;perspective-origin:50% 50%;}
+  .world{position:absolute;inset:0;overflow:hidden;background:radial-gradient(120% 90% at 50% 8%, #2b1c0f 0%, #17110b 55%, #0e0b08 100%);}
   .scene-bg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;filter:blur(var(--blur-px)) brightness(var(--back-brightness));background:radial-gradient(90% 70% at 50% 0%, rgba(232,163,61,0.24) 0%, transparent 60%);}
 
   .site-header{position:absolute;top:0;left:0;right:0;z-index:10;display:grid;grid-template-columns:minmax(200px,1fr) auto minmax(200px,1fr);align-items:center;gap:28px;padding:32px;pointer-events:auto;}
@@ -134,19 +133,7 @@
   .flavor-controls.is-ready{pointer-events:auto;}
   .flavor-nav{width:52px;height:52px;display:inline-flex;align-items:center;justify-content:center;border-radius:999px;color:#111411;background:rgba(253,241,225,0.94);box-shadow:0 18px 36px rgba(0,0,0,0.3);cursor:pointer;font-size:1.1rem;border:none;font-family:inherit;}
 
-  .backdrop-half{position:absolute;inset:0;z-index:2;pointer-events:none;background:#F4E9D8 url('https://d8j0ntlcm91z4.cloudfront.net/user_3IVN073Xc0iLeFjE7IDKTw7MYZt/hf_20260827_191554_d7eeea82-77fb-457f-b751-aad80414d348.png') center/cover no-repeat;backface-visibility:hidden;}
-  .backdrop-half-left{
-    clip-path:inset(0 50% 0 0);
-    transform-origin:100% 50%;
-    transform:translateX(calc(-1 * var(--photo-split))) translateZ(calc(-1 * var(--photo-depth))) rotateY(calc(-1 * var(--photo-tilt)));
-    filter:drop-shadow(calc(-1 * var(--photo-split) * 0.4) 0 18px rgba(0,0,0,0.6));
-  }
-  .backdrop-half-right{
-    clip-path:inset(0 0 0 50%);
-    transform-origin:0% 50%;
-    transform:translateX(var(--photo-split)) translateZ(calc(-1 * var(--photo-depth))) rotateY(var(--photo-tilt));
-    filter:drop-shadow(calc(var(--photo-split) * 0.4) 0 18px rgba(0,0,0,0.6));
-  }
+  .backdrop-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;pointer-events:none;background:#F4E9D8;}
   .header-scrim{position:absolute;top:0;left:0;right:0;height:170px;z-index:9;pointer-events:none;background:linear-gradient(180deg, rgba(0,0,0,0.5) 0%, transparent 100%);}
 
   .hero-title{position:absolute;left:50%;top:clamp(80px,14vh,150px);width:min(96vw,1780px);margin:0;z-index:3;display:flex;flex-direction:column;align-items:center;text-align:center;pointer-events:none;transform:translate3d(-50%, var(--title-y), 0) scale(var(--title-scale));opacity:var(--title-opacity);will-change:transform,opacity;}
@@ -305,8 +292,7 @@
       </header>
       <div class="header-scrim"></div>
 
-      <div class="backdrop-half backdrop-half-left"></div>
-      <div class="backdrop-half backdrop-half-right"></div>
+      <video class="backdrop-video" id="backdropVideo" src="videos/bar-break.mp4" muted playsinline preload="auto"></video>
 
       <div class="back-stack">
         <div class="glow-layer"></div>
@@ -574,10 +560,20 @@ halo.innerHTML = haloIcons.map((svg, i) => {
   const flavorControls = document.querySelector('.flavor-controls');
   const prevBtn = document.querySelector('.flavor-prev');
   const nextBtn = document.querySelector('.flavor-next');
+  const backdropVideo = document.getElementById('backdropVideo');
 
   let targetMouseX = 0, targetMouseY = 0, mouseX = 0, mouseY = 0;
   let targetScroll = 0, smoothScroll = 0, initialized = false, rafPending = false;
   let slides = [], originalCount = 0, activeSlide = 0;
+  let videoReady = false, lastVideoTime = -1;
+
+  if(backdropVideo){
+    backdropVideo.addEventListener('loadedmetadata', () => {
+      videoReady = true;
+      backdropVideo.play().then(() => backdropVideo.pause()).catch(() => {});
+      requestTick();
+    }, {once:true});
+  }
 
   function clamp(v, min=0, max=1){ return Math.min(max, Math.max(min, v)); }
   function smoothstep(e0, e1, v){ const x = clamp((v - e0) / (e1 - e0)); return x * x * (3 - 2 * x); }
@@ -691,9 +687,13 @@ halo.innerHTML = haloIcons.map((svg, i) => {
     root.style.setProperty('--title-scale', 1 - introExit * 0.08);
     root.style.setProperty('--title-opacity', 1 - introExit);
 
-    root.style.setProperty('--photo-split', `${backdropSplit * 16}vw`);
-    root.style.setProperty('--photo-tilt', `${backdropSplit * 42}deg`);
-    root.style.setProperty('--photo-depth', `${backdropSplit * 220}px`);
+    if(backdropVideo && videoReady && isFinite(backdropVideo.duration)){
+      const targetTime = Math.min(backdropSplit * backdropVideo.duration, backdropVideo.duration - 0.05);
+      if(Math.abs(targetTime - lastVideoTime) > 0.02){
+        backdropVideo.currentTime = targetTime;
+        lastVideoTime = targetTime;
+      }
+    }
 
     root.style.setProperty('--frame2-opacity', frame2Opacity);
     root.style.setProperty('--frame2-x', `calc(-50% + ${mouseX * 10}px)`);
