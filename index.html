@@ -693,7 +693,7 @@ halo.innerHTML = haloIcons.map((svg, i) => {
 
     if(backdropVideo && videoReady && !videoSeeking && isFinite(backdropVideo.duration)){
       const targetTime = Math.min(backdropSplit * backdropVideo.duration, backdropVideo.duration - 0.05);
-      if(Math.abs(targetTime - lastVideoTime) > 0.03){
+      if(Math.abs(targetTime - lastVideoTime) > 0.015){
         backdropVideo.currentTime = targetTime;
         lastVideoTime = targetTime;
       }
