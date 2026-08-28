@@ -660,7 +660,7 @@ halo.innerHTML = haloIcons.map((svg, i) => {
     const panel2Opacity = frame2.active * (1 - frame2.exit);
     const panel3Opacity = frame3.active * (1 - frame3.exit);
     const backScale = 0.76 + progress * 0.2 + frame2.enter * 0.18 + frame3.enter * 0.16;
-    const backdropSplit = Math.pow(clamp(smoothScroll / 3700), 1.15);
+    const backdropSplit = Math.pow(clamp(smoothScroll / 3300), 1.15);
     const flavorScreenTop = Math.min(220, Math.max(112, window.innerHeight * 0.19)) - 50;
     const flavorParentTop = window.innerHeight - (window.innerHeight - flavorScreenTop) / backScale;
 
