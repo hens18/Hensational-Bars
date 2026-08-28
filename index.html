@@ -567,7 +567,7 @@ halo.innerHTML = haloIcons.map((svg, i) => {
   let targetMouseX = 0, targetMouseY = 0, mouseX = 0, mouseY = 0;
   let targetScroll = 0, smoothScroll = 0, initialized = false, rafPending = false;
   let slides = [], originalCount = 0, activeSlide = 0;
-  let videoReady = false, lastVideoTime = -1, lastSeekAt = 0;
+  let videoReady = false, videoSeeking = false, lastVideoTime = -1;
 
   if(backdropVideo){
     backdropVideo.addEventListener('loadedmetadata', () => {
@@ -575,6 +575,8 @@ halo.innerHTML = haloIcons.map((svg, i) => {
       backdropVideo.play().then(() => backdropVideo.pause()).catch(() => {});
       requestTick();
     }, {once:true});
+    backdropVideo.addEventListener('seeking', () => { videoSeeking = true; });
+    backdropVideo.addEventListener('seeked', () => { videoSeeking = false; requestTick(); });
   }
 
   function clamp(v, min=0, max=1){ return Math.min(max, Math.max(min, v)); }
@@ -689,13 +691,11 @@ halo.innerHTML = haloIcons.map((svg, i) => {
     root.style.setProperty('--title-scale', 1 - introExit * 0.08);
     root.style.setProperty('--title-opacity', 1 - introExit);
 
-    if(backdropVideo && videoReady && isFinite(backdropVideo.duration)){
-      const now = performance.now();
+    if(backdropVideo && videoReady && !videoSeeking && isFinite(backdropVideo.duration)){
       const targetTime = Math.min(backdropSplit * backdropVideo.duration, backdropVideo.duration - 0.05);
-      if(Math.abs(targetTime - lastVideoTime) > 0.05 && now - lastSeekAt > 90){
+      if(Math.abs(targetTime - lastVideoTime) > 0.03){
         backdropVideo.currentTime = targetTime;
         lastVideoTime = targetTime;
-        lastSeekAt = now;
       }
     }
 
