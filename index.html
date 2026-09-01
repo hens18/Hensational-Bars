@@ -165,26 +165,6 @@
   .macro-reveal-num{font-family:'Fraunces',serif;font-size:clamp(1.8rem,4.6vw,3.2rem);font-weight:700;color:var(--amber-2);}
   .macro-reveal-label{font-family:'JetBrains Mono',monospace;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--bone);margin-top:4px;}
 
-  /* Editorial sidebar accents (Awwwards-style rotated labels + floating order card) */
-  .side-label{position:absolute;top:50%;left:22px;z-index:6;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:0.78rem;text-transform:uppercase;letter-spacing:0.32em;color:rgba(239,231,218,0.55);pointer-events:none;}
-  .side-nav-right{position:absolute;top:36%;right:22px;z-index:6;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:22px;writing-mode:vertical-rl;pointer-events:none;}
-  .side-nav-right span{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.24em;color:rgba(239,231,218,0.5);}
-  .side-nav-right span::after{content:'';display:block;width:4px;height:4px;border-radius:50%;background:var(--amber-2);margin:10px auto 0;}
-  .side-nav-right span:last-child::after{display:none;}
-
-  .hero-order-cluster{position:absolute;top:64%;right:clamp(20px,5vw,72px);z-index:7;display:flex;flex-direction:column;align-items:center;gap:0;transform:translateY(-50%);}
-  .hero-order-eyebrow{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.16em;color:var(--bone);text-shadow:0 2px 10px rgba(0,0,0,0.6);margin-bottom:12px;white-space:nowrap;}
-  .hero-order-pill{display:flex;align-items:center;gap:8px;background:#12100D;border:1px solid rgba(239,231,218,0.22);border-radius:999px;padding:6px;box-shadow:0 14px 34px rgba(0,0,0,0.45);pointer-events:auto;}
-  .hero-order-avatar{width:36px;height:36px;flex:0 0 auto;border-radius:50%;background:var(--bone);color:#12100D;display:flex;align-items:center;justify-content:center;font-family:'Anton',sans-serif;font-size:0.95rem;}
-  .hero-order-cta{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:#12100D;background:var(--amber-2);padding:11px 20px;border-radius:999px;transition:transform 0.2s ease,background 0.2s ease;white-space:nowrap;}
-  .hero-order-cta:hover{transform:translateY(-2px);background:var(--vanilla);}
-  .hero-order-line{width:1px;height:26px;background:rgba(239,231,218,0.3);margin-top:14px;}
-  .hero-order-tag{margin-top:10px;font-family:'JetBrains Mono',monospace;font-weight:600;font-size:0.62rem;text-transform:uppercase;letter-spacing:0.16em;color:rgba(239,231,218,0.6);white-space:nowrap;}
-
-  @media(max-width:900px){
-    .side-label, .side-nav-right, .hero-order-cluster{display:none;}
-  }
-
   .shade{position:absolute;inset:0;z-index:var(--shade-z);pointer-events:none;opacity:var(--shade-opacity);background:linear-gradient(180deg, rgba(var(--blur-tint), var(--shade-top-alpha)) 0%, rgba(var(--blur-tint), var(--shade-mid-alpha)) 48%, rgba(var(--blur-tint), var(--shade-bottom-alpha)) 100%);}
 
   .intro-copy{position:absolute;left:50%;bottom:clamp(36px,9vh,80px);width:min(1000px, calc(100vw - 48px));z-index:9;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;text-align:left;transform:translate3d(-50%, var(--intro-copy-y), 0);opacity:var(--intro-copy-opacity);will-change:transform,opacity;}
@@ -374,23 +354,6 @@
         <div class="macro-reveal-item"><span class="macro-reveal-num">230&ndash;240</span><span class="macro-reveal-label">Calories</span></div>
         <div class="macro-reveal-item"><span class="macro-reveal-num">100%</span><span class="macro-reveal-label">Organic</span></div>
         <div class="macro-reveal-item"><span class="macro-reveal-num">0</span><span class="macro-reveal-label">Nuts. Ever.</span></div>
-      </div>
-
-      <div class="side-label" aria-hidden="true">Hensational Bars</div>
-      <div class="side-nav-right" aria-hidden="true">
-        <span>Intro</span>
-        <span>Ingredients</span>
-        <span>Nutrition</span>
-        <span>Find Us</span>
-      </div>
-      <div class="hero-order-cluster">
-        <span class="hero-order-eyebrow">Fuel Up</span>
-        <div class="hero-order-pill">
-          <span class="hero-order-avatar" aria-hidden="true">H.</span>
-          <a class="hero-order-cta" href="https://docs.google.com/forms/d/1-GL7xyo1LE1OSf5OQTn-QHsxVOQFBogLRNarPPpncRw/viewform" target="_blank" rel="noopener">Order Now</a>
-        </div>
-        <span class="hero-order-line" aria-hidden="true"></span>
-        <span class="hero-order-tag">See All Flavors</span>
       </div>
 
       <div class="shade"></div>
