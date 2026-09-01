@@ -99,7 +99,7 @@
     --flavor-screen-top: clamp(112px, 19vh, 220px);
   }
 
-  .cinema-scroll{position:relative;height:calc(100vh + 3700px);}
+  .cinema-scroll{position:relative;height:calc(100vh + 5100px);}
   .stage{position:sticky;top:0;height:100vh;min-height:640px;overflow:hidden;isolation:isolate;background:#1a1108;}
   .world{position:absolute;inset:0;overflow:hidden;background:radial-gradient(120% 90% at 50% 8%, #2b1c0f 0%, #17110b 55%, #0e0b08 100%);}
   .scene-bg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;filter:blur(var(--blur-px)) brightness(var(--back-brightness));background:radial-gradient(90% 70% at 50% 0%, rgba(232,163,61,0.24) 0%, transparent 60%);}
@@ -581,8 +581,10 @@ halo.innerHTML = haloIcons.map((svg, i) => {
 
   let targetMouseX = 0, targetMouseY = 0, mouseX = 0, mouseY = 0;
   let targetScroll = 0, smoothScroll = 0, initialized = false, rafPending = false;
-  let slides = [], originalCount = 0, activeSlide = 0;
+  let slides = [], originalCount = 0, activeSlide = 0, scrollChapterIndex = -1;
   const FLAVOR_ACCENTS = ['#7A4A2A', '#E8C77E', '#B5652E'];
+  const FLAVOR_CHAPTER_START = 3200;
+  const FLAVOR_CHAPTER_END = 5000;
   let videoReady = false, videoSeeking = false, lastVideoTime = -1, scrubEnabled = false;
 
   const HERO_GATES = [
@@ -694,9 +696,9 @@ halo.innerHTML = haloIcons.map((svg, i) => {
     const frame3 = segmentInOut(smoothScroll, 1760, 2140, 2540, 2700);
     const progress = clamp(smoothScroll / 2700);
     const introExit = smoothstep(90, 650, smoothScroll);
-    const flavorEnterRaw = smoothstep(2760, 3560, smoothScroll);
+    const flavorEnterRaw = smoothstep(2900, 3200, smoothScroll);
     const flavorEnter = Math.pow(flavorEnterRaw, 1.55);
-    const flavorControlsEnter = smoothstep(3360, 3660, smoothScroll);
+    const flavorControlsEnter = smoothstep(3000, 3300, smoothScroll);
     const blurActive = clamp(frame2.active + frame3.active);
     const frame2Opacity = frame2.active * (1 - frame3.enter);
     const panel2Opacity = frame2.active * (1 - frame2.exit);
@@ -763,6 +765,16 @@ halo.innerHTML = haloIcons.map((svg, i) => {
     root.style.setProperty('--flavor-scale', 1 / backScale);
     root.style.setProperty('--flavor-top', `${flavorParentTop}px`);
     root.style.setProperty('--flavor-screen-top', `${flavorScreenTop}px`);
+
+    if(originalCount > 0){
+      const chapterRaw = clamp((smoothScroll - FLAVOR_CHAPTER_START) / (FLAVOR_CHAPTER_END - FLAVOR_CHAPTER_START));
+      const chapterIndex = Math.min(originalCount - 1, Math.floor(chapterRaw * originalCount));
+      if(chapterIndex !== scrollChapterIndex){
+        scrollChapterIndex = chapterIndex;
+        activeSlide = originalCount + chapterIndex;
+        updateFlavorSlider();
+      }
+    }
 
     if(Math.abs(smoothScroll - targetScroll) > 0.08 || Math.abs(mouseX - targetMouseX) > 0.001 || Math.abs(mouseY - targetMouseY) > 0.001){
       requestTick();
