@@ -113,6 +113,7 @@
   @media(max-width:640px){ .site-nav{display:none;} }
 
   .back-stack{position:absolute;top:0;bottom:0;left:-3vw;right:-3vw;pointer-events:none;opacity:var(--back-opacity);transform:translate3d(var(--back-x),var(--back-y),0) scale(var(--back-scale));transform-origin:50% 100%;will-change:transform,filter,opacity;}
+  .flavor-backdrop{position:absolute;inset:-6vw;z-index:2;pointer-events:none;background:var(--flavor-accent-color, transparent);opacity:var(--flavor-backdrop-opacity,0);transition:background-color 640ms cubic-bezier(0.22,1,0.36,1);}
   .glow-layer{position:absolute;left:50%;bottom:0;width:70%;height:70%;border-radius:50%;background:radial-gradient(circle, rgba(232,163,61,0.55) 0%, transparent 70%);opacity:0.72;mix-blend-mode:screen;filter:blur(30px);transform:translate3d(-50%, calc(var(--four-y) - 110px), 0) scale(var(--four-scale));}
   .ingredient-halo{position:absolute;left:50%;bottom:0;width:112%;height:74%;transform:translate3d(-50%, var(--bazaar-y), 0) scale(0.86);filter:blur(var(--bazaar-blur-px)) brightness(var(--bazaar-brightness)) saturate(var(--bazaar-saturation));}
   .halo-icon{position:absolute;}
@@ -310,6 +311,7 @@
       <div class="backdrop-vignette"></div>
 
       <div class="back-stack">
+        <div class="flavor-backdrop" id="flavorBackdrop" aria-hidden="true"></div>
         <div class="glow-layer"></div>
 
         <section class="flavor-slider" aria-label="Hensational flavors slider">
@@ -580,6 +582,7 @@ halo.innerHTML = haloIcons.map((svg, i) => {
   let targetMouseX = 0, targetMouseY = 0, mouseX = 0, mouseY = 0;
   let targetScroll = 0, smoothScroll = 0, initialized = false, rafPending = false;
   let slides = [], originalCount = 0, activeSlide = 0;
+  const FLAVOR_ACCENTS = ['#7A4A2A', '#E8C77E', '#B5652E'];
   let videoReady = false, videoSeeking = false, lastVideoTime = -1, scrubEnabled = false;
 
   const HERO_GATES = [
@@ -657,6 +660,8 @@ halo.innerHTML = haloIcons.map((svg, i) => {
     slides.forEach(card => {
       card.classList.toggle('is-active', Number(card.dataset.slideIndex) === activeSlide);
     });
+    const realIndex = ((activeSlide % originalCount) + originalCount) % originalCount;
+    root.style.setProperty('--flavor-accent-color', FLAVOR_ACCENTS[realIndex]);
   }
 
   function moveSlider(dir){ activeSlide += dir; updateFlavorSlider(); }
@@ -749,6 +754,7 @@ halo.innerHTML = haloIcons.map((svg, i) => {
     root.style.setProperty('--panel3-y', `calc(-50% + ${-frame3.exit * 86 + (1 - frame3.enter) * 58}px)`);
 
     root.style.setProperty('--flavor-opacity', flavorEnter);
+    root.style.setProperty('--flavor-backdrop-opacity', flavorEnter * 0.82);
     root.style.setProperty('--flavor-controls-opacity', flavorControlsEnter);
     flavorControls.classList.toggle('is-ready', flavorControlsEnter > 0.98);
     root.style.setProperty('--flavor-visibility', flavorEnter > 0.01 ? 'visible' : 'hidden');
