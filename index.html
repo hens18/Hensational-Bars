@@ -92,14 +92,9 @@
     --intro-copy-y:0px; --intro-copy-opacity:1;
     --panel2-opacity:0; --panel2-y:calc(-50% + 58px);
     --panel3-opacity:0; --panel3-y:calc(-50% + 58px);
-    --flavor-opacity:0; --flavor-controls-opacity:0; --flavor-y:0px;
-    --flavor-enter-x:420vw; --flavor-visibility:hidden;
-    --flavor-shift:0px; --flavor-scale:1;
-    --flavor-top: clamp(112px, 19vh, 220px);
-    --flavor-screen-top: clamp(112px, 19vh, 220px);
   }
 
-  .cinema-scroll{position:relative;height:calc(100vh + 5100px);}
+  .cinema-scroll{position:relative;height:calc(100vh + 3400px);}
   .stage{position:sticky;top:0;height:100vh;min-height:640px;overflow:hidden;isolation:isolate;background:#1a1108;}
   .world{position:absolute;inset:0;overflow:hidden;background:radial-gradient(120% 90% at 50% 8%, #2b1c0f 0%, #17110b 55%, #0e0b08 100%);}
   .scene-bg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;filter:blur(var(--blur-px)) brightness(var(--back-brightness));background:radial-gradient(90% 70% at 50% 0%, rgba(232,163,61,0.24) 0%, transparent 60%);}
@@ -113,16 +108,17 @@
   @media(max-width:640px){ .site-nav{display:none;} }
 
   .back-stack{position:absolute;top:0;bottom:0;left:-3vw;right:-3vw;z-index:4;pointer-events:none;opacity:var(--back-opacity);transform:translate3d(var(--back-x),var(--back-y),0) scale(var(--back-scale));transform-origin:50% 100%;will-change:transform,filter,opacity;}
-  .flavor-backdrop{position:absolute;inset:-6vw;z-index:2;pointer-events:none;background:var(--flavor-accent-color, transparent);opacity:var(--flavor-backdrop-opacity,0);transition:background-color 640ms cubic-bezier(0.22,1,0.36,1);}
   .glow-layer{position:absolute;left:50%;bottom:0;width:70%;height:70%;border-radius:50%;background:radial-gradient(circle, rgba(232,163,61,0.55) 0%, transparent 70%);opacity:0.72;mix-blend-mode:screen;filter:blur(30px);transform:translate3d(-50%, calc(var(--four-y) - 110px), 0) scale(var(--four-scale));}
   .ingredient-halo{position:absolute;left:50%;bottom:0;width:112%;height:74%;transform:translate3d(-50%, var(--bazaar-y), 0) scale(0.86);filter:blur(var(--bazaar-blur-px)) brightness(var(--bazaar-brightness)) saturate(var(--bazaar-saturation));}
   .halo-icon{position:absolute;}
   .halo-icon svg{width:100%;height:100%;}
 
-  .flavor-slider{position:absolute;left:0;right:0;top:var(--flavor-top);z-index:2;opacity:1;visibility:var(--flavor-visibility);transform:translate3d(var(--flavor-enter-x), var(--flavor-y), 0) scale(var(--flavor-scale));transform-origin:50% 0;pointer-events:auto;will-change:transform;}
-  .flavor-track{display:flex;gap:clamp(20px,1.8vw,32px);align-items:flex-start;justify-content:center;will-change:transform;}
+  .flavor-showcase{position:relative;padding:96px 24px 110px;background:var(--bg);overflow:hidden;}
+  .flavor-showcase-backdrop{position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 90% at 50% 30%, var(--flavor-accent-color, transparent) 0%, transparent 68%);opacity:0.32;transition:background-color 480ms ease;}
+  .flavor-showcase-inner{position:relative;max-width:1200px;margin:0 auto;}
+  .flavor-track{display:flex;flex-wrap:wrap;gap:clamp(20px,1.8vw,32px);align-items:flex-start;justify-content:center;}
 
-  .flavor-slide{position:relative;flex:0 0 clamp(260px,18vw,320px);display:flex;flex-direction:column;overflow:hidden;border:1px solid rgba(253,241,225,0.42);border-radius:24px;color:#000;background:var(--bone);box-shadow:0 18px 52px rgba(0,0,0,0.35);cursor:pointer;pointer-events:auto;user-select:none;transition:transform 420ms cubic-bezier(0.22,1,0.36,1),box-shadow 420ms cubic-bezier(0.22,1,0.36,1),opacity 420ms ease;}
+  .flavor-slide{position:relative;flex:0 0 clamp(260px,18vw,320px);display:flex;flex-direction:column;overflow:hidden;border:1px solid rgba(253,241,225,0.42);border-radius:24px;color:#000;background:var(--bone);box-shadow:0 18px 52px rgba(0,0,0,0.35);cursor:pointer;user-select:none;transition:transform 420ms cubic-bezier(0.22,1,0.36,1),box-shadow 420ms cubic-bezier(0.22,1,0.36,1),opacity 420ms ease;}
   .flavor-slide:focus-visible{outline:none;box-shadow:0 0 0 3px var(--amber-2), 0 18px 52px rgba(0,0,0,0.35);}
   .flavor-slide.is-active{transform:translateY(-20px) scale(1.06);z-index:3;box-shadow:0 0 0 3px var(--amber-2), 0 30px 64px rgba(0,0,0,0.45);}
   .flavor-slide:not(.is-active){opacity:0.86;transform:scale(0.97);}
@@ -133,8 +129,7 @@
   .flavor-slide h3{margin:0 0 8px;color:#150F09;font-family:'Fraunces',serif;font-size:1.4rem;font-weight:700;line-height:1;}
   .flavor-slide p{margin:0;color:#463A2A;font-size:0.88rem;font-weight:500;line-height:1.28;}
 
-  .flavor-controls{position:absolute;left:50%;right:auto;top:calc(var(--flavor-screen-top) + 360px + 20px);z-index:5;display:flex;justify-content:center;gap:14px;opacity:var(--flavor-controls-opacity);transform:translate3d(-50%, var(--flavor-y), 0);pointer-events:none;will-change:transform,opacity;}
-  .flavor-controls.is-ready{pointer-events:auto;}
+  .flavor-controls{display:flex;justify-content:center;gap:14px;margin-top:36px;}
   .flavor-nav{width:52px;height:52px;display:inline-flex;align-items:center;justify-content:center;border-radius:999px;color:#111411;background:rgba(253,241,225,0.94);box-shadow:0 18px 36px rgba(0,0,0,0.3);cursor:pointer;font-size:1.1rem;border:none;font-family:inherit;}
 
   .backdrop-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;pointer-events:none;background:#F4E9D8;filter:saturate(1.15) contrast(1.08) brightness(0.9) sepia(0.18) hue-rotate(-6deg);}
@@ -206,7 +201,7 @@
     .facts{gap:22px;margin-top:32px;}
     .facts dt{font-size:2rem;}
     .flavor-slide{flex-basis:min(82vw,320px);}
-    .flavor-controls{top:calc(var(--flavor-screen-top) + 340px);}
+    .flavor-showcase{padding:64px 20px 80px;}
     .macro-reveal{padding:24px;gap:16px 26px;}
   }
   @media(prefers-reduced-motion: reduce){
@@ -314,47 +309,8 @@
       <div class="backdrop-vignette"></div>
 
       <div class="back-stack">
-        <div class="flavor-backdrop" id="flavorBackdrop" aria-hidden="true"></div>
         <div class="glow-layer"></div>
-
-        <section class="flavor-slider" aria-label="Hensational flavors slider">
-          <div class="flavor-track" id="flavorTrack">
-            <article class="flavor-slide" tabindex="0" role="button" aria-label="Select Chocolate Cacao">
-              <img class="flavor-photo" src="images/flavor-cacao.jpg" alt="Chocolate Cacao protein bar" loading="lazy">
-              <span class="slide-pin" aria-hidden="true">🍫</span>
-              <div class="flavor-slide-body">
-                <span class="slide-kicker">Client Favorite</span>
-                <h3>Chocolate Cacao</h3>
-                <p>240 Cal &middot; 23g Protein &middot; TL Whey, Dutch cacao, honey, cinnamon.</p>
-              </div>
-            </article>
-            <article class="flavor-slide" tabindex="0" role="button" aria-label="Select Vanilla Bean">
-              <img class="flavor-photo" src="images/flavor-vanilla.jpg" alt="Vanilla Bean protein bar" loading="lazy">
-              <span class="slide-pin" aria-hidden="true">🍦</span>
-              <div class="flavor-slide-body">
-                <span class="slide-kicker">Everyday Fuel</span>
-                <h3>Vanilla Bean</h3>
-                <p>235 Cal &middot; 22g Protein &middot; TL Whey, vanilla bean, dates, honey.</p>
-              </div>
-            </article>
-            <article class="flavor-slide" tabindex="0" role="button" aria-label="Select Gingerbread">
-              <img class="flavor-photo" src="images/flavor-gingerbread.jpg" alt="Gingerbread protein bar" loading="lazy">
-              <span class="slide-pin" aria-hidden="true">🍪</span>
-              <div class="flavor-slide-body">
-                <span class="slide-kicker">Seasonal Standout</span>
-                <h3>Gingerbread</h3>
-                <p>230 Cal &middot; 22g Protein &middot; TL Whey, cinnamon, nutmeg, maple.</p>
-              </div>
-            </article>
-          </div>
-        </section>
-
         <div class="ingredient-halo" id="ingredientHalo"></div>
-      </div>
-
-      <div class="flavor-controls" aria-label="Slider controls">
-        <button class="flavor-nav flavor-prev" aria-label="Previous flavor">&larr;</button>
-        <button class="flavor-nav flavor-next" aria-label="Next flavor">&rarr;</button>
       </div>
 
       <h1 class="hero-title" aria-label="Hensational">
@@ -403,6 +359,46 @@
         <span>See Every Ingredient</span>
       </a>
     </section>
+  </div>
+</section>
+
+<!-- FLAVOR SHOWCASE (static, below the pinned hero) -->
+<section class="flavor-showcase" id="flavors" aria-label="Hensational flavors">
+  <div class="flavor-showcase-backdrop" id="flavorBackdrop" aria-hidden="true"></div>
+  <div class="flavor-showcase-inner">
+    <div class="flavor-track" id="flavorTrack">
+      <article class="flavor-slide" tabindex="0" role="button" aria-label="Select Chocolate Cacao">
+        <img class="flavor-photo" src="images/flavor-cacao.jpg" alt="Chocolate Cacao protein bar" loading="lazy">
+        <span class="slide-pin" aria-hidden="true">🍫</span>
+        <div class="flavor-slide-body">
+          <span class="slide-kicker">Client Favorite</span>
+          <h3>Chocolate Cacao</h3>
+          <p>240 Cal &middot; 23g Protein &middot; TL Whey, Dutch cacao, honey, cinnamon.</p>
+        </div>
+      </article>
+      <article class="flavor-slide" tabindex="0" role="button" aria-label="Select Vanilla Bean">
+        <img class="flavor-photo" src="images/flavor-vanilla.jpg" alt="Vanilla Bean protein bar" loading="lazy">
+        <span class="slide-pin" aria-hidden="true">🍦</span>
+        <div class="flavor-slide-body">
+          <span class="slide-kicker">Everyday Fuel</span>
+          <h3>Vanilla Bean</h3>
+          <p>235 Cal &middot; 22g Protein &middot; TL Whey, vanilla bean, dates, honey.</p>
+        </div>
+      </article>
+      <article class="flavor-slide" tabindex="0" role="button" aria-label="Select Gingerbread">
+        <img class="flavor-photo" src="images/flavor-gingerbread.jpg" alt="Gingerbread protein bar" loading="lazy">
+        <span class="slide-pin" aria-hidden="true">🍪</span>
+        <div class="flavor-slide-body">
+          <span class="slide-kicker">Seasonal Standout</span>
+          <h3>Gingerbread</h3>
+          <p>230 Cal &middot; 22g Protein &middot; TL Whey, cinnamon, nutmeg, maple.</p>
+        </div>
+      </article>
+    </div>
+    <div class="flavor-controls" aria-label="Slider controls">
+      <button class="flavor-nav flavor-prev" aria-label="Previous flavor">&larr;</button>
+      <button class="flavor-nav flavor-next" aria-label="Next flavor">&rarr;</button>
+    </div>
   </div>
 </section>
 
@@ -593,10 +589,8 @@ halo.innerHTML = haloIcons.map((svg, i) => {
 
   let targetMouseX = 0, targetMouseY = 0, mouseX = 0, mouseY = 0;
   let targetScroll = 0, smoothScroll = 0, initialized = false, rafPending = false;
-  let slides = [], originalCount = 0, activeSlide = 0, scrollChapterIndex = -1;
+  let slides = [], originalCount = 0, activeSlide = 0;
   const FLAVOR_ACCENTS = ['#7A4A2A', '#E8C77E', '#B5652E'];
-  const FLAVOR_CHAPTER_START = 3200;
-  const FLAVOR_CHAPTER_END = 5000;
   let videoReady = false, videoSeeking = false, lastVideoTime = -1, scrubEnabled = false;
 
   const HERO_GATES = [
@@ -690,17 +684,12 @@ halo.innerHTML = haloIcons.map((svg, i) => {
     const frame3 = segmentInOut(smoothScroll, 1760, 2140, 2540, 2700);
     const progress = clamp(smoothScroll / 2700);
     const introExit = smoothstep(90, 650, smoothScroll);
-    const flavorEnterRaw = smoothstep(2900, 3200, smoothScroll);
-    const flavorEnter = Math.pow(flavorEnterRaw, 1.55);
-    const flavorControlsEnter = smoothstep(3000, 3300, smoothScroll);
     const blurActive = clamp(frame2.active + frame3.active);
     const frame2Opacity = frame2.active * (1 - frame3.enter);
     const panel2Opacity = frame2.active * (1 - frame2.exit);
     const panel3Opacity = frame3.active * (1 - frame3.exit);
     const backScale = 0.76 + progress * 0.2 + frame2.enter * 0.18 + frame3.enter * 0.16;
     const backdropSplit = Math.pow(clamp(smoothScroll / 3300), 1.15);
-    const flavorScreenTop = Math.min(220, Math.max(112, window.innerHeight * 0.19)) - 50;
-    const flavorParentTop = window.innerHeight - (window.innerHeight - flavorScreenTop) / backScale;
 
     const mx = reduceMotion.matches ? 0 : mouseX;
     const my = reduceMotion.matches ? 0 : mouseY;
@@ -748,27 +737,6 @@ halo.innerHTML = haloIcons.map((svg, i) => {
     root.style.setProperty('--panel2-y', `calc(-50% + ${-frame2.exit * 86 + (1 - frame2.enter) * 58}px)`);
     root.style.setProperty('--panel3-opacity', panel3Opacity);
     root.style.setProperty('--panel3-y', `calc(-50% + ${-frame3.exit * 86 + (1 - frame3.enter) * 58}px)`);
-
-    root.style.setProperty('--flavor-opacity', flavorEnter);
-    root.style.setProperty('--flavor-backdrop-opacity', flavorEnter * 0.82);
-    root.style.setProperty('--flavor-controls-opacity', flavorControlsEnter);
-    flavorControls.classList.toggle('is-ready', flavorControlsEnter > 0.98);
-    root.style.setProperty('--flavor-visibility', flavorEnter > 0.01 ? 'visible' : 'hidden');
-    root.style.setProperty('--flavor-y', '0px');
-    root.style.setProperty('--flavor-enter-x', `${(1 - flavorEnter) * 420}vw`);
-    root.style.setProperty('--flavor-scale', 1 / backScale);
-    root.style.setProperty('--flavor-top', `${flavorParentTop}px`);
-    root.style.setProperty('--flavor-screen-top', `${flavorScreenTop}px`);
-
-    if(originalCount > 0){
-      const chapterRaw = clamp((smoothScroll - FLAVOR_CHAPTER_START) / (FLAVOR_CHAPTER_END - FLAVOR_CHAPTER_START));
-      const chapterIndex = Math.min(originalCount - 1, Math.floor(chapterRaw * originalCount));
-      if(chapterIndex !== scrollChapterIndex){
-        scrollChapterIndex = chapterIndex;
-        activeSlide = chapterIndex;
-        updateFlavorSlider();
-      }
-    }
 
     if(Math.abs(smoothScroll - targetScroll) > 0.08 || Math.abs(mouseX - targetMouseX) > 0.001 || Math.abs(mouseY - targetMouseY) > 0.001){
       requestTick();
