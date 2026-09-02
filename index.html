@@ -119,18 +119,21 @@
   .halo-icon{position:absolute;}
   .halo-icon svg{width:100%;height:100%;}
 
-  .flavor-slider{position:absolute;left:0;right:0;top:var(--flavor-top);z-index:2;opacity:1;visibility:var(--flavor-visibility);transform:translate3d(var(--flavor-enter-x), var(--flavor-y), 0) scale(var(--flavor-scale));transform-origin:0 0;pointer-events:auto;will-change:transform;}
-  .flavor-track{display:flex;gap:clamp(16px,1.15vw,24px);align-items:stretch;transform:translate3d(calc(var(--flavor-shift) - 18vw),0,0);transition:transform 640ms cubic-bezier(0.22,1,0.36,1);will-change:transform;}
-  .flavor-track.is-jumping{transition:none;}
+  .flavor-slider{position:absolute;left:0;right:0;top:var(--flavor-top);z-index:2;opacity:1;visibility:var(--flavor-visibility);transform:translate3d(var(--flavor-enter-x), var(--flavor-y), 0) scale(var(--flavor-scale));transform-origin:50% 0;pointer-events:auto;will-change:transform;}
+  .flavor-track{display:flex;gap:clamp(20px,1.8vw,32px);align-items:flex-start;justify-content:center;will-change:transform;}
 
-  .flavor-slide{position:relative;flex:0 0 clamp(300px,19.4vw,380px);height:220px;padding:24px;overflow:hidden;border:1px solid rgba(253,241,225,0.42);border-radius:24px;color:#000;background:var(--bone);box-shadow:0 18px 52px rgba(0,0,0,0.35);cursor:pointer;pointer-events:auto;user-select:none;}
-  .flavor-slide:focus-visible, .flavor-slide.is-active{outline:none;box-shadow:0 0 0 3px var(--amber-2), 0 18px 52px rgba(0,0,0,0.35);}
-  .slide-kicker{display:block;margin-bottom:56px;color:#150F09;font-size:0.72rem;font-weight:700;line-height:1.05;text-transform:uppercase;letter-spacing:0.06em;}
-  .slide-pin{position:absolute;top:20px;right:22px;width:52px;height:52px;display:flex;align-items:center;justify-content:center;font-size:2.1rem;pointer-events:none;}
-  .flavor-slide h3{position:absolute;left:24px;right:24px;bottom:64px;max-width:calc(100% - 76px);margin:0;color:#150F09;font-family:'Fraunces',serif;font-size:1.4rem;font-weight:700;line-height:0.98;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-  .flavor-slide p{position:absolute;left:24px;right:24px;bottom:24px;max-width:100%;margin:0;color:#463A2A;font-size:0.88rem;font-weight:500;line-height:1.28;display:-webkit-box;max-height:calc(2em * 1.28);overflow:hidden;-webkit-box-orient:vertical;-webkit-line-clamp:2;}
+  .flavor-slide{position:relative;flex:0 0 clamp(260px,18vw,320px);display:flex;flex-direction:column;overflow:hidden;border:1px solid rgba(253,241,225,0.42);border-radius:24px;color:#000;background:var(--bone);box-shadow:0 18px 52px rgba(0,0,0,0.35);cursor:pointer;pointer-events:auto;user-select:none;transition:transform 420ms cubic-bezier(0.22,1,0.36,1),box-shadow 420ms cubic-bezier(0.22,1,0.36,1),opacity 420ms ease;}
+  .flavor-slide:focus-visible{outline:none;box-shadow:0 0 0 3px var(--amber-2), 0 18px 52px rgba(0,0,0,0.35);}
+  .flavor-slide.is-active{transform:translateY(-20px) scale(1.06);z-index:3;box-shadow:0 0 0 3px var(--amber-2), 0 30px 64px rgba(0,0,0,0.45);}
+  .flavor-slide:not(.is-active){opacity:0.86;transform:scale(0.97);}
+  .flavor-photo{width:100%;height:clamp(140px,14vw,190px);object-fit:cover;display:block;pointer-events:none;}
+  .flavor-slide-body{position:relative;padding:20px 24px 24px;}
+  .slide-kicker{display:block;margin-bottom:10px;color:#150F09;font-size:0.72rem;font-weight:700;line-height:1.05;text-transform:uppercase;letter-spacing:0.06em;}
+  .slide-pin{position:absolute;top:12px;right:14px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:1.7rem;pointer-events:none;filter:drop-shadow(0 4px 10px rgba(0,0,0,0.35));}
+  .flavor-slide h3{margin:0 0 8px;color:#150F09;font-family:'Fraunces',serif;font-size:1.4rem;font-weight:700;line-height:1;}
+  .flavor-slide p{margin:0;color:#463A2A;font-size:0.88rem;font-weight:500;line-height:1.28;}
 
-  .flavor-controls{position:absolute;left:48px;right:auto;top:calc(var(--flavor-screen-top) + 220px + 16px);z-index:5;display:flex;justify-content:flex-start;gap:14px;opacity:var(--flavor-controls-opacity);transform:translate3d(0, var(--flavor-y), 0);pointer-events:none;will-change:transform,opacity;}
+  .flavor-controls{position:absolute;left:50%;right:auto;top:calc(var(--flavor-screen-top) + 360px + 20px);z-index:5;display:flex;justify-content:center;gap:14px;opacity:var(--flavor-controls-opacity);transform:translate3d(-50%, var(--flavor-y), 0);pointer-events:none;will-change:transform,opacity;}
   .flavor-controls.is-ready{pointer-events:auto;}
   .flavor-nav{width:52px;height:52px;display:inline-flex;align-items:center;justify-content:center;border-radius:999px;color:#111411;background:rgba(253,241,225,0.94);box-shadow:0 18px 36px rgba(0,0,0,0.3);cursor:pointer;font-size:1.1rem;border:none;font-family:inherit;}
 
@@ -202,8 +205,8 @@
     .story-panel-why{top:26%;}
     .facts{gap:22px;margin-top:32px;}
     .facts dt{font-size:2rem;}
-    .flavor-slide{flex-basis:min(82vw,320px);height:210px;padding:20px;}
-    .flavor-controls{top:calc(var(--flavor-screen-top) + 230px);left:22px;}
+    .flavor-slide{flex-basis:min(82vw,320px);}
+    .flavor-controls{top:calc(var(--flavor-screen-top) + 340px);}
     .macro-reveal{padding:24px;gap:16px 26px;}
   }
   @media(prefers-reduced-motion: reduce){
@@ -316,23 +319,32 @@
 
         <section class="flavor-slider" aria-label="Hensational flavors slider">
           <div class="flavor-track" id="flavorTrack">
-            <article class="flavor-slide" tabindex="0" role="button" aria-label="Open Chocolate Cacao details">
-              <span class="slide-kicker">Client Favorite</span>
+            <article class="flavor-slide" tabindex="0" role="button" aria-label="Select Chocolate Cacao">
+              <img class="flavor-photo" src="images/flavor-cacao.jpg" alt="Chocolate Cacao protein bar" loading="lazy">
               <span class="slide-pin" aria-hidden="true">🍫</span>
-              <h3>Chocolate Cacao</h3>
-              <p>240 Cal &middot; 23g Protein &middot; TL Whey, Dutch cacao, honey, cinnamon.</p>
+              <div class="flavor-slide-body">
+                <span class="slide-kicker">Client Favorite</span>
+                <h3>Chocolate Cacao</h3>
+                <p>240 Cal &middot; 23g Protein &middot; TL Whey, Dutch cacao, honey, cinnamon.</p>
+              </div>
             </article>
-            <article class="flavor-slide" tabindex="0" role="button" aria-label="Open Vanilla Bean details">
-              <span class="slide-kicker">Everyday Fuel</span>
+            <article class="flavor-slide" tabindex="0" role="button" aria-label="Select Vanilla Bean">
+              <img class="flavor-photo" src="images/flavor-vanilla.jpg" alt="Vanilla Bean protein bar" loading="lazy">
               <span class="slide-pin" aria-hidden="true">🍦</span>
-              <h3>Vanilla Bean</h3>
-              <p>235 Cal &middot; 22g Protein &middot; TL Whey, vanilla bean, dates, honey.</p>
+              <div class="flavor-slide-body">
+                <span class="slide-kicker">Everyday Fuel</span>
+                <h3>Vanilla Bean</h3>
+                <p>235 Cal &middot; 22g Protein &middot; TL Whey, vanilla bean, dates, honey.</p>
+              </div>
             </article>
-            <article class="flavor-slide" tabindex="0" role="button" aria-label="Open Gingerbread details">
-              <span class="slide-kicker">Seasonal Standout</span>
+            <article class="flavor-slide" tabindex="0" role="button" aria-label="Select Gingerbread">
+              <img class="flavor-photo" src="images/flavor-gingerbread.jpg" alt="Gingerbread protein bar" loading="lazy">
               <span class="slide-pin" aria-hidden="true">🍪</span>
-              <h3>Gingerbread</h3>
-              <p>230 Cal &middot; 22g Protein &middot; TL Whey, cinnamon, nutmeg, maple.</p>
+              <div class="flavor-slide-body">
+                <span class="slide-kicker">Seasonal Standout</span>
+                <h3>Gingerbread</h3>
+                <p>230 Cal &middot; 22g Protein &middot; TL Whey, cinnamon, nutmeg, maple.</p>
+              </div>
             </article>
           </div>
         </section>
@@ -634,52 +646,34 @@ halo.innerHTML = haloIcons.map((svg, i) => {
   }
 
   function setupFlavorSlider(){
-    const originals = Array.from(flavorTrack.children);
-    originalCount = originals.length;
-    flavorTrack.replaceChildren();
-    for(let setIndex = 0; setIndex < 3; setIndex++){
-      originals.forEach((card, cardIndex) => {
-        const clone = card.cloneNode(true);
-        clone.dataset.slideIndex = setIndex * originalCount + cardIndex;
-        clone.addEventListener('click', () => selectSlide(clone));
-        clone.addEventListener('keydown', (e) => {
-          if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); selectSlide(clone); }
-        });
-        flavorTrack.appendChild(clone);
-      });
-    }
     slides = Array.from(flavorTrack.children);
-    activeSlide = originalCount;
-    flavorTrack.addEventListener('transitionend', normalizeSlider);
+    originalCount = slides.length;
+    slides.forEach((card, i) => {
+      card.dataset.slideIndex = i;
+      card.addEventListener('click', () => selectSlide(card));
+      card.addEventListener('keydown', (e) => {
+        if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); selectSlide(card); }
+      });
+    });
+    activeSlide = 0;
     updateFlavorSlider();
   }
 
   function updateFlavorSlider(){
     if(!slides.length) return;
-    const cardWidth = slides[0].offsetWidth;
-    const gap = parseFloat(getComputedStyle(flavorTrack).columnGap || '0');
-    root.style.setProperty('--flavor-shift', `${-(cardWidth + gap) * activeSlide}px`);
     slides.forEach(card => {
       card.classList.toggle('is-active', Number(card.dataset.slideIndex) === activeSlide);
     });
-    const realIndex = ((activeSlide % originalCount) + originalCount) % originalCount;
-    root.style.setProperty('--flavor-accent-color', FLAVOR_ACCENTS[realIndex]);
+    root.style.setProperty('--flavor-accent-color', FLAVOR_ACCENTS[activeSlide]);
   }
 
-  function moveSlider(dir){ activeSlide += dir; updateFlavorSlider(); }
+  function moveSlider(dir){
+    activeSlide = Math.min(originalCount - 1, Math.max(0, activeSlide + dir));
+    updateFlavorSlider();
+  }
   function selectSlide(card){
     const idx = Number(card.dataset.slideIndex);
     if(Number.isFinite(idx)){ activeSlide = idx; updateFlavorSlider(); }
-  }
-  function jumpSlider(i){
-    flavorTrack.classList.add('is-jumping');
-    activeSlide = i;
-    updateFlavorSlider();
-    requestAnimationFrame(() => requestAnimationFrame(() => flavorTrack.classList.remove('is-jumping')));
-  }
-  function normalizeSlider(){
-    if(activeSlide >= originalCount * 2) jumpSlider(activeSlide - originalCount);
-    else if(activeSlide < originalCount) jumpSlider(activeSlide + originalCount);
   }
 
   function update(){
@@ -771,7 +765,7 @@ halo.innerHTML = haloIcons.map((svg, i) => {
       const chapterIndex = Math.min(originalCount - 1, Math.floor(chapterRaw * originalCount));
       if(chapterIndex !== scrollChapterIndex){
         scrollChapterIndex = chapterIndex;
-        activeSlide = originalCount + chapterIndex;
+        activeSlide = chapterIndex;
         updateFlavorSlider();
       }
     }
