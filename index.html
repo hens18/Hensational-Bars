@@ -94,7 +94,7 @@
     --panel3-opacity:0; --panel3-y:calc(-50% + 58px);
   }
 
-  .cinema-scroll{position:relative;height:calc(100vh + 3400px);}
+  .cinema-scroll{position:relative;height:calc(100vh + 1700px);}
   .stage{position:sticky;top:0;height:100vh;min-height:640px;overflow:hidden;isolation:isolate;background:#1a1108;}
   .world{position:absolute;inset:0;overflow:hidden;background:radial-gradient(120% 90% at 50% 8%, #2b1c0f 0%, #17110b 55%, #0e0b08 100%);}
   .scene-bg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;filter:blur(var(--blur-px)) brightness(var(--back-brightness));background:radial-gradient(90% 70% at 50% 0%, rgba(232,163,61,0.24) 0%, transparent 60%);}
@@ -680,16 +680,16 @@ halo.innerHTML = haloIcons.map((svg, i) => {
     mouseX = lerp(mouseX, targetMouseX, 0.12);
     mouseY = lerp(mouseY, targetMouseY, 0.12);
 
-    const frame2 = segmentInOut(smoothScroll, 560, 900, 1300, 1620);
-    const frame3 = segmentInOut(smoothScroll, 1760, 2140, 2540, 2700);
-    const progress = clamp(smoothScroll / 2700);
-    const introExit = smoothstep(90, 650, smoothScroll);
+    const frame2 = segmentInOut(smoothScroll, 280, 450, 650, 810);
+    const frame3 = segmentInOut(smoothScroll, 880, 1070, 1270, 1350);
+    const progress = clamp(smoothScroll / 1350);
+    const introExit = smoothstep(45, 325, smoothScroll);
     const blurActive = clamp(frame2.active + frame3.active);
     const frame2Opacity = frame2.active * (1 - frame3.enter);
     const panel2Opacity = frame2.active * (1 - frame2.exit);
     const panel3Opacity = frame3.active * (1 - frame3.exit);
     const backScale = 0.76 + progress * 0.2 + frame2.enter * 0.18 + frame3.enter * 0.16;
-    const backdropSplit = Math.pow(clamp(smoothScroll / 3300), 1.15);
+    const backdropSplit = Math.pow(clamp(smoothScroll / 1650), 1.15);
 
     const mx = reduceMotion.matches ? 0 : mouseX;
     const my = reduceMotion.matches ? 0 : mouseY;
